@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
+  font-family: "Courgette", cursive;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  margin: 80px auto 0;
+  width: 80%;
+  background: #fff;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.45);
+}
+
+.main-heading {
+  font-family: "Pacifico", cursive;
+  font-size: 42px;
+  color: #ff1493;
+  text-shadow: 0 0 10px pink;
+}
+
+.typing-text {
+  font-size: 22px;
+  color: #444;
+  height: 68px;      /* reserve space so page doesn’t jump */
+  margin: 25px 0;
+}
+
+.quote {
+  font-style: italic;
+  color: #555;
+  margin-top: 25px;
+  font-size: 18px;
+}
+
+.btn {
+  display: inline-block;
+  margin: 15px 10px;
+  padding: 12px 24px;
+  background: #ff66a3;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 18px;
+  box-shadow: 0 5px 15px rgba(255, 102, 163, 0.4);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover { background: #e60073; transform: scale(1.05); }
+
+/* ---------- Flying hearts ---------- */
+.heart {
+  position: fixed;
+  bottom: -40px;              /* start just below screen */
+  font-size: 24px;
+  pointer-events: none;
+  z-index: 9999;
+  animation: fly 9s linear forwards;
+  opacity: 0.8;
+}
+@keyframes fly {
+  0%   { transform: translateY(0);   opacity: 0.8; }
+  50%  { transform: translateY(-50vh); opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}

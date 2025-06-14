@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🧩 Love Puzzle</title>
+
+<style>
+  body{
+    margin:0;padding:40px;
+    font-family:'Comic Sans MS',cursive;
+    background:linear-gradient(135deg,#ffe6f0,#ffccdd);
+    text-align:center;
+  }
+  h1{color:#d63384;font-size:36px;margin:0 0 25px;text-shadow:0 0 8px #ffa3c8;}
+  #board{
+    position:relative;
+    width:300px;height:300px;
+    margin:0 auto;
+    border:6px solid #ff69b4;
+    box-shadow:0 0 20px pink;
+  }
+  .tile{
+    position:absolute;
+    width:100px;height:100px;
+    background-image:url('lovepuzzle.jpg');
+    background-size:300px 300px;
+    border:1px solid #fff;
+    cursor:pointer;
+    transition:top .18s,left .18s;
+  }
+  .empty{background:none;border:none;cursor:default;}
+  .btn{
+    display:inline-block;margin-top:25px;
+    padding:12px 28px;font-size:18px;
+    background:#ff66a3;color:#fff;border-radius:25px;
+    text-decoration:none;box-shadow:0 5px 15px rgba(255,102,163,.4);
+  }
+  .btn:hover{background:#e60073;}
+</style>
+</head>
+<body>
+
+<h1>🧩 Love Puzzle</h1>
+<div id="board"></div>
+<a href="gamezone.html" class="btn">⬅️ Back to Game Zone</a>
+
+<script>
+const size = 3;                       // 3×3 puzzle
+const board = document.getElementById('board');
+let tiles = [];                       // HTML elements
+let state = [];                       // current order (0‑7 are tiles, 8 = empty)
+
+/* 1️⃣ Build tiles */
+function createTiles(){
+  tiles.length = 0;
+  for(let i=0;i<size*size;i++){
+    const div=document.createElement('div');
+    div.dataset.id=i;                 // correct position id
+    if(i===size*size-1){
+      div.className='tile empty';     // the empty square
+    }else{
+      div.className='tile';
+      const r=Math.floor(i/size),c=i%size;
+      div.style.backgroundPosition=`-${c*100}px -${r*100}px`;
+      div.onclick=onTileClick;
+    }
+    tiles.push(div);
+  }
+}
+
+/* 2️⃣ Shuffle until solvable & not solved */
+function shuffleState(){
+  state=[...Array(size*size).keys()];
+  do{
+    for(let i=state.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [state[i],state[j]]=[state[j],state[i]];
+    }
+  }while(!isSolvable(state)||isSolved());
+}
+
+/* Simple even‑perm solvability for 3×3 */
+function isSolvable(arr){
+  let inv=0;
+  for(let i=0;i<8;i++)
+    for(let j=i+1;j<9;j++)
+      if(arr[i]!==8 && arr[j]!==8 && arr[i]>arr[j]) inv++;
+  return inv%2===0;
+}
+function isSolved(){
+  return state.every((v,i)=>v===i);
+}
+
+/* 3️⃣ Render all tiles based on current state */
+function render(){
+  for(let i=0;i<state.length;i++){
+    const id=state[i];
+    const tile=tiles[id];
+    const row=Math.floor(i/size),col=i%size;
+    tile.style.top  = row*100+'px';
+    tile.style.left = col*100+'px';
+    if(!tile.isConnected) board.appendChild(tile),tile.isConnected=true;
+  }
+}
+
+/* 4️⃣ Handle tile click */
+function onTileClick(){
+  const index = state.indexOf(+this.dataset.id);     // where this tile currently sits
+  const empty = state.indexOf(8);                    // where empty sits
+  if(isAdjacent(index,empty)){
+    state[empty]=+this.dataset.id;
+    state[index]=8;
+    render();
+    if(isSolved()) setTimeout(()=>alert('🎉 Puzzle Solved!'),200);
+  }
+}
+function isAdjacent(a,b){
+  const ar=Math.floor(a/size),ac=a%size;
+  const br=Math.floor(b/size),bc=b%size;
+  return Math.abs(ar-br)+Math.abs(ac-bc)===1;
+}
+
+/* 5️⃣ Init */
+createTiles();
+shuffleState();
+render();
+</script>
+
+</body>
+</html>

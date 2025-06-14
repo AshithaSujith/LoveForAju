@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Truth or Dare 💑</title>
+  <link rel="stylesheet" href="home-style.css">
+  <style>
+    body {
+      background: #fff0f5;
+      text-align: center;
+      font-family: 'Courgette', cursive;
+    }
+
+    h2 {
+      color: #e60073;
+      margin-top: 50px;
+      font-size: 30px;
+    }
+
+    .btn {
+      margin: 20px;
+    }
+
+    .output {
+      font-size: 24px;
+      margin-top: 40px;
+      padding: 20px;
+      color: #ff1493;
+    }
+
+    .back {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Truth or Dare: Couple Edition 💘</h2>
+
+  <button class="btn" onclick="showTruth()">Truth 😇</button>
+  <button class="btn" onclick="showDare()">Dare 😈</button>
+
+  <div class="output" id="outputText">Click a button to play!</div>
+
+  <a href="gamezone.html" class="btn back">⬅️ Back to Game Zone</a>
+
+  <script>
+    const truths = [
+      "Did you think about me..?",
+      "Do you miss the days when we laughed and the days we made the love..?",
+      "did you missed me..?",
+      "What do you love most about me?",
+      "Are you really happy now?",
+      "Would you forgive me..?"
+      
+    ];
+
+    const dares = [
+      "Send me a cute selfie right now 😍",
+      "Say 'I love you' 5 times fast 💖",
+      "Write me a 4-line poem 💌",
+      "Give me a virtual kiss 😘",
+      "Confess something sweet in voice message 🎙️",
+      "give me virtual hugs"
+    ];
+
+    function showTruth() {
+      const random = truths[Math.floor(Math.random() * truths.length)];
+      document.getElementById("outputText").textContent = random;
+    }
+
+    function showDare() {
+      const random = dares[Math.floor(Math.random() * dares.length)];
+      document.getElementById("outputText").textContent = random;
+    }
+  </script>
+</body>
+</html>

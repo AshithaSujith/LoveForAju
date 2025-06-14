@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sorry Aju 💔</title>
+
+  <!-- 💖 Home‑page CSS -->
+  <link rel="stylesheet" href="home-style.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Courgette&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Background music (will start when user clicks button) -->
+  <audio id="bg-music" loop>
+    <source src="background.mp3.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Flying hearts container (JS will add hearts) -->
+  <div class="hearts">❤️ 💕 💖 💘 💝 💞 💗 💓 💟</div>
+
+  <div class="container">
+    <h1 class="main-heading">Ajuooo… 🥺</h1>
+
+    <!-- Auto‑typing text -->
+    <p id="typing-text" class="typing-text"></p>
+
+    <!-- Music button -->
+    <button class="btn" onclick="playMusic()">🎶 Click to Hear Our Song</button>
+
+    <!-- Memories button -->
+    <a href="memories.html" class="btn">📸 See Our Memories</a>
+    <a href="gamezone.html" class="btn">🎮 Game Zone</a>
+
+    <!-- Quote -->
+    <p class="quote">“I miss your presence… 🥺🥺🥺”</p>
+
+    <!-- Cute emoji banner -->
+    <div style="font-size:48px">👫💑💖</div>
+  </div>
+
+  <!-- ====================================================== -->
+  <script>
+    /* ---------- 1. Flying‑heart animation ---------- */
+    let heartCount = 0,
+        maxHearts  = 25;     // max hearts on screen
+
+    setInterval(() => {
+      if (heartCount >= maxHearts) return;
+
+      const heart = document.createElement('div');
+      heart.textContent = '💖';
+      heart.className   = 'heart';
+      heart.style.left  = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 6 + Math.random() * 3 + 's';
+      document.body.appendChild(heart);
+      heartCount++;
+
+      setTimeout(() => { heart.remove(); heartCount--; }, 9000);
+    }, 900);
+
+    /* ---------- 2. Music play on click ---------- */
+    const music = document.getElementById('bg-music');
+    let musicStarted = false;
+    function playMusic() {
+      if (!musicStarted) {
+        music.play();
+        musicStarted = true;
+        alert('🎧 Playing our love song…');
+      }
+    }
+
+    /* ---------- 3. Type‑writer effect ---------- */
+    const fullText =
+      'I miss you so much Aju… Please forgive me… I’m sorry 😢… I love you… and I need you 💖';
+    let i = 0;
+    (function typeLine() {
+      if (i < fullText.length) {
+        document.getElementById('typing-text').textContent += fullText.charAt(i++);
+        setTimeout(typeLine, 80);
+      }
+    })();
+  </script>
+</body>
+</html>
